@@ -8,7 +8,7 @@ import { useState } from "react";
 
 type Props = {
   text: string
-  color: string
+  color?: string
 }
 
 const Header = ({

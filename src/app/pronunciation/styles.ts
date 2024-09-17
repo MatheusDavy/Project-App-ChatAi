@@ -57,7 +57,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    paddingBottom: 40
+    paddingBottom: 40,
+    marginTop: 40,
   },
   actionsButton: {
     display: 'flex',

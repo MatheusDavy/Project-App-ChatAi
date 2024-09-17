@@ -35,6 +35,7 @@ const ConversationsPage = () => {
             <View
               style={{
                 ...styles.consversationMessagesWrapper,
+                marginTop: index === 0 ? 30 : 0,
                 alignSelf: index % 2 !== 0
                   ? 'flex-end'
                   : 'flex-start'

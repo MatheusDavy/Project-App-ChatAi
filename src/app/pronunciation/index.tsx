@@ -19,51 +19,52 @@ const PronunciationPage = () => {
         />
         <Marbles isRecordind={data.isLoading} />
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            value={data.description}
-            onChangeText={methods.setDescription}
-            style={styles.input}
-            placeholderTextColor={THEME.FONTS.COLORS.SECONDARY}
-            placeholder="Type something to pronunce..."
-            numberOfLines={1}
-            readOnly={!data.edit}
-          />
-
-          <TouchableOpacity
-            style={styles.inputEdit}
-            onPress={() => {
-              methods.setEdit(prev => !prev);
-            }}
-          >
-            <Ionicons
-              style={{ position: 'relative', zIndex: 10 }}
-              name={data.edit ? 'checkmark' : 'create-outline'} size={30}
-              color={THEME.FONTS.COLORS.PRIMARY}
-            />
-          </TouchableOpacity>
-        </View>
-
         <View
           style={{
-            ...styles.actionsContainer,
             opacity: !data.isLoading ? 1 : 0
           }}
         >
-          <TouchableOpacity
-            style={styles.actionsButton}
-            onPressIn={methods.recordingStart}
-            onPressOut={methods.recordingStop}
-            activeOpacity={1}
-            disabled={data.isLoading}
-          >
-            <Ionicons
-              style={{ position: 'relative', zIndex: 10 }}
-              name="mic-outline" size={50}
-              color={THEME.FONTS.COLORS.PRIMARY}
+          <View style={styles.inputContainer}>
+            <TextInput
+              value={data.description}
+              onChangeText={methods.setDescription}
+              style={styles.input}
+              placeholderTextColor={THEME.FONTS.COLORS.SECONDARY}
+              placeholder="Type something to pronunce..."
+              numberOfLines={1}
+              readOnly={!data.edit}
             />
-          </TouchableOpacity>
-          {data.recording && <PulseRecording />}
+
+            <TouchableOpacity
+              style={styles.inputEdit}
+              onPress={() => {
+                methods.setEdit(prev => !prev);
+              }}
+            >
+              <Ionicons
+                style={{ position: 'relative', zIndex: 10 }}
+                name={data.edit ? 'checkmark' : 'create-outline'} size={30}
+                color={THEME.FONTS.COLORS.PRIMARY}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity
+              style={styles.actionsButton}
+              onPressIn={methods.recordingStart}
+              onPressOut={methods.recordingStop}
+              activeOpacity={1}
+              disabled={data.isLoading}
+            >
+              <Ionicons
+                style={{ position: 'relative', zIndex: 10 }}
+                name="mic-outline" size={50}
+                color={THEME.FONTS.COLORS.PRIMARY}
+              />
+            </TouchableOpacity>
+            {data.recording && <PulseRecording />}
+          </View>
         </View>
       </View>
     </SafeAreaView>
