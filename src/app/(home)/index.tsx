@@ -8,7 +8,7 @@ const HomeView = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Welcome Back
+        Bem vindo de volta!
       </Text>
 
       <Image
@@ -18,10 +18,10 @@ const HomeView = () => {
 
       <View>
         <Text style={styles.text}>
-          Let´s learning something new
+          Vamos aprender algo novo
         </Text>
         <Text style={styles.subtext}>
-          You can improve your conversation, pronunciation and talk about any topics
+          Você pode melhorar sua conversação, pronúncia e falar sobre qualquer assunto
         </Text>
       </View>
 
@@ -32,7 +32,7 @@ const HomeView = () => {
         }}
       >
         <Text style={styles.linkText}>
-          Start
+          Iniciar
         </Text>
       </TouchableOpacity>
     </View>

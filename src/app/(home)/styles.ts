@@ -1,4 +1,4 @@
-import { FONT_FAMILY, FONT_SIZE, SPACINGS } from "@/src/styles";
+import { FONT_FAMILY, FONT_SIZE, SPACINGS, WIDHT_SCREEN } from "@/src/styles";
 
 import { THEME } from "@/src/styles/themes";
 
@@ -29,10 +29,10 @@ export const styles = StyleSheet.create({
     objectFit: 'contain',
   },
   text: {
-    fontSize: FONT_SIZE.size_40,
+    fontSize: WIDHT_SCREEN * 0.09,
     color: THEME.FONTS.COLORS.PRIMARY,
     fontFamily: FONT_FAMILY.poppinsSemibold,
-    lineHeight: FONT_SIZE.size_40,
+    lineHeight: WIDHT_SCREEN * 0.09,
     textAlign: 'center'
   },
   subtext: {

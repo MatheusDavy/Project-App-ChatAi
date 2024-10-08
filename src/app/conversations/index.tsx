@@ -18,7 +18,7 @@ const ConversationsPage = () => {
     <SafeAreaView>
       <View style={styles.container}>
         <Header
-          text="Go ahead, let´s talk"
+          text="Bora!!, Vamos conversar"
         />
 
         <ScrollView
@@ -77,7 +77,7 @@ const ConversationsPage = () => {
             onChangeText={methods.setDescription}
             style={styles.input}
             placeholderTextColor={THEME.FONTS.COLORS.SECONDARY}
-            placeholder="Type message..."
+            placeholder="Say anything..."
             multiline={true}
             numberOfLines={!data.description ? 1 : 2}
           />

@@ -90,3 +90,83 @@ export const stylesPulse = StyleSheet.create({
     zIndex: 0
   }
 })
+
+export const stylesModal = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    zIndex: 1000,
+    width: "100%",
+    height: "100%",
+    backgroundColor: THEME.COLORS.SECONDARY,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  close: {
+    position: 'absolute',
+    left: SPACINGS.container,
+    top: SPACINGS.container + 40,
+
+    width: 42,
+    height: 42,
+    zIndex: 100,
+
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: THEME.COLORS.QUATERNARY
+  },
+  text: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingHorizontal: SPACINGS.container
+  },
+  normalWord: {
+    color: THEME.FONTS.COLORS.PRIMARY,
+    fontSize: FONT_SIZE.size_20,
+    fontFamily: FONT_FAMILY.poppinsSemibold
+  },
+  differentWord: {
+    color: THEME.COLORS.RED,
+    fontSize: FONT_SIZE.size_20,
+    fontFamily: FONT_FAMILY.poppinsSemibold
+  },
+  animation: {
+    position: 'absolute',
+    height: WIDHT_SCREEN * 2,
+    width: WIDHT_SCREEN * 2,
+    objectFit: 'contain',
+  }
+})
+
+export const stylesPopup = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    left: '2.5%',
+    bottom: 20,
+    
+    width: '95%',
+
+    backgroundColor: THEME.COLORS.PRIMARY,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  text:{
+    flex: 1,
+    fontSize: FONT_SIZE.size_18,
+    color: THEME.FONTS.COLORS.PRIMARY,
+  },
+})

@@ -1,31 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
-import * as FileSystem from 'expo-file-system';
+import * as Speench from 'expo-speech';
 import { useDispatch } from "react-redux";
-import { showToast } from "@/src/store/reducers/toast";
+import * as FileSystem from 'expo-file-system';
 
-const RECORDING_OPTIONS = {
-  android: {
-    extension: '.m4a',
-    outputFormat: Audio.AndroidOutputFormat.MPEG_4,
-    audioEncoder: Audio.AndroidAudioEncoder.AAC,
-    sampleRate: 44100,
-    numberOfChannels: 2,
-    bitRate: 128000,
-  },
-  ios: {
-    extension: '.wav',
-    audioQuality: Audio.IOSAudioQuality.HIGH,
-    sampleRate: 44100,
-    numberOfChannels: 1,
-    bitRate: 128000,
-    linearPCMBitDepth: 16,
-    linearPCMIsBigEndian: false,
-    linearPCMIsFloat: false,
-  },
-  web: {}
-};
+import { showToast } from "@/src/store/reducers/toast";
+import { Platform } from "react-native";
 
 const useLogic = () => {
   const dispatch = useDispatch();
@@ -34,13 +15,71 @@ const useLogic = () => {
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [edit, setEdit] = useState(true);
+  const [result, setResult] = useState<any>(null)
 
-  const getResponse = async () => {
-    setIsLoading(true)
+  const getResponse = async (base64File: string) => {
+    setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    try {
+      const apiKey = process.env.EXPO_PUBLIC_GCP_SPEECH_TO_TEXT_KEY;
+      const endpoint = `https://speech.googleapis.com/v1/speech:recognize`;
+
+      const payload = JSON.stringify({
+        audio: {
+          content: base64File
+        },
+        config: {
+          languageCode: "en-US",
+          encoding: Platform.OS === "ios" ? "LINEAR16" : "AMR_WB",
+          sampleRateHertz: Platform.OS === "ios" ? 44100 : 16000,
+        },
+      });
+
+
+      const transcriptResponse = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-goog-api-key": apiKey!
+        },
+        body: payload
+      });
+      const data = await transcriptResponse.json();
+      const response = data.results[0].alternatives[0].transcript
+      
+      if (response) {
+        compareResults(response);
+      } else {
+        throw Error();
+      }
+    } catch (error) {
+      console.log(error);
+      showToast({
+        description: 'Não foi possível obter informações de sua pronúncia',
+        type: 'error'
+      });
+    }
+
+    setIsLoading(false);
+  };
+
+
+  const compareResults = async (text: string) => {
+    const mainWords = description.toLocaleLowerCase().split(" ");
+    const comparisonWords = text.toLocaleLowerCase().split(" ");
+
+    let result = [];
+
+    for (let i = 0; i < mainWords.length; i++) {
+      if (mainWords[i] !== comparisonWords[i]) {
+        result.push({ word: mainWords[i], isDifferent: true });
+      } else {
+        result.push({ word: mainWords[i], isDifferent: false });
+      }
+    }
+
+    return setResult(result);
   }
 
   const recordingStart = async () => {
@@ -57,7 +96,27 @@ const useLogic = () => {
 
     if (granted) {
       try {
-        const { recording } = await Audio.Recording.createAsync(RECORDING_OPTIONS);
+        const { recording } = await Audio.Recording.createAsync({
+          ...Audio.RecordingOptionsPresets.HIGH_QUALITY,
+          android: {
+            extension: '.amr',
+            outputFormat: Audio.AndroidOutputFormat.AMR_WB,
+            audioEncoder: Audio.AndroidAudioEncoder.AMR_WB,
+            sampleRate: 16000,
+            numberOfChannels: 1,
+            bitRate: 128000,
+          },
+          ios: {
+            extension: '.wav',
+            audioQuality: Audio.IOSAudioQuality.HIGH,
+            sampleRate: 44100,
+            numberOfChannels: 1,
+            bitRate: 128000,
+            linearPCMBitDepth: 16,
+            linearPCMIsBigEndian: false,
+            linearPCMIsFloat: false,
+          }
+        });
         setRecording(recording);
       } catch (error) {
         console.log(error);
@@ -74,15 +133,26 @@ const useLogic = () => {
         const base64File = await FileSystem.readAsStringAsync(recordingFileUri, { encoding: FileSystem?.EncodingType?.Base64 });
         await FileSystem.deleteAsync(recordingFileUri);
 
-       getResponse()
-
         setRecording(null);
+        getResponse(base64File);
       } else {
-        console.log('Não foi possível gravar o áudio')
+        showToast({
+          description: 'Não foi possível obter informações de sua pronúncia',
+          type: 'error'
+        })
       }
+
     } catch (error) {
-      console.log(error);
+      console.log("Conversion Error: " + error);
     }
+  }
+
+  const textToVoice = (text: string) => {
+    Speench.speak(text, {
+      language: 'en-US',
+      pitch: 1,
+      rate: 0.5,
+    })
   }
 
   useEffect(() => {
@@ -105,6 +175,7 @@ const useLogic = () => {
   return {
     data: {
       edit,
+      result,
       isLoading,
       description,
       recording
@@ -114,6 +185,8 @@ const useLogic = () => {
       recordingStart,
       recordingStop,
       setDescription,
+      textToVoice,
+      setResult
     }
   }
 }
