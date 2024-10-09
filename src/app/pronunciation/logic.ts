@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
-import * as Speench from 'expo-speech';
+import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from "expo-av";
+import * as Speench from "expo-speech";
 import { useDispatch } from "react-redux";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
 
 import { showToast } from "@/src/store/reducers/toast";
 import { Platform } from "react-native";
@@ -12,58 +12,65 @@ const useLogic = () => {
   const dispatch = useDispatch();
 
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [edit, setEdit] = useState(true);
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<any>(null);
 
   const getResponse = async (base64File: string) => {
     setIsLoading(true);
 
     try {
       const apiKey = process.env.EXPO_PUBLIC_GCP_SPEECH_TO_TEXT_KEY;
-      const endpoint = `https://speech.googleapis.com/v1/speech:recognize`;
+      const endpoint = `https://speech.googleapis.com/v1/speech:recognize?key=${apiKey}`;
 
       const payload = JSON.stringify({
-        audio: {
-          content: base64File
-        },
         config: {
           languageCode: "en-US",
           encoding: Platform.OS === "ios" ? "LINEAR16" : "AMR_WB",
           sampleRateHertz: Platform.OS === "ios" ? 44100 : 16000,
         },
+        audio: {
+          content: base64File,
+        },
       });
-
 
       const transcriptResponse = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-goog-api-key": apiKey!
+          "X-goog-api-key": apiKey!,
         },
-        body: payload
+        body: payload,
       });
+
       const data = await transcriptResponse.json();
-      const response = data.results[0].alternatives[0].transcript
-      
+      console.log(data);
+      const response = data.results[0].alternatives[0].transcript || "";
+
       if (response) {
         compareResults(response);
       } else {
-        throw Error();
+        dispatch(
+          showToast({
+            description: "Não foi possível obter informações de sua pronúncia",
+            type: "error",
+          })
+        )
       }
     } catch (error) {
-      console.log(error);
-      showToast({
-        description: 'Não foi possível obter informações de sua pronúncia',
-        type: 'error'
-      });
+      console.log("error transcript: " + error);
+      dispatch(
+        showToast({
+          description: "Não foi possível obter informações de sua pronúncia",
+          type: "error",
+        })
+      );
     }
 
     setIsLoading(false);
   };
-
 
   const compareResults = async (text: string) => {
     const mainWords = description.toLocaleLowerCase().split(" ");
@@ -80,7 +87,7 @@ const useLogic = () => {
     }
 
     return setResult(result);
-  }
+  };
 
   const recordingStart = async () => {
     const { granted } = await Audio.getPermissionsAsync();
@@ -88,10 +95,11 @@ const useLogic = () => {
     if (edit) {
       return dispatch(
         showToast({
-          description: 'Você precisa adicionar um texto de referência para iniciar',
-          type: 'error'
+          description:
+            "Você precisa adicionar um texto de referência para iniciar",
+          type: "error",
         })
-      )
+      );
     }
 
     if (granted) {
@@ -99,7 +107,7 @@ const useLogic = () => {
         const { recording } = await Audio.Recording.createAsync({
           ...Audio.RecordingOptionsPresets.HIGH_QUALITY,
           android: {
-            extension: '.amr',
+            extension: ".amr",
             outputFormat: Audio.AndroidOutputFormat.AMR_WB,
             audioEncoder: Audio.AndroidAudioEncoder.AMR_WB,
             sampleRate: 16000,
@@ -107,7 +115,7 @@ const useLogic = () => {
             bitRate: 128000,
           },
           ios: {
-            extension: '.wav',
+            extension: ".wav",
             audioQuality: Audio.IOSAudioQuality.HIGH,
             sampleRate: 44100,
             numberOfChannels: 1,
@@ -115,14 +123,14 @@ const useLogic = () => {
             linearPCMBitDepth: 16,
             linearPCMIsBigEndian: false,
             linearPCMIsFloat: false,
-          }
+          },
         });
         setRecording(recording);
       } catch (error) {
         console.log(error);
       }
     }
-  }
+  };
 
   const recordingStop = async () => {
     try {
@@ -130,46 +138,46 @@ const useLogic = () => {
       const recordingFileUri = recording?.getURI();
 
       if (recordingFileUri) {
-        const base64File = await FileSystem.readAsStringAsync(recordingFileUri, { encoding: FileSystem?.EncodingType?.Base64 });
+        const base64File = await FileSystem.readAsStringAsync(
+          recordingFileUri,
+          { encoding: FileSystem?.EncodingType?.Base64 }
+        );
         await FileSystem.deleteAsync(recordingFileUri);
 
         setRecording(null);
         getResponse(base64File);
       } else {
         showToast({
-          description: 'Não foi possível obter informações de sua pronúncia',
-          type: 'error'
-        })
+          description: "Não foi possível obter informações de sua pronúncia",
+          type: "error",
+        });
       }
-
     } catch (error) {
       console.log("Conversion Error: " + error);
     }
-  }
+  };
 
   const textToVoice = (text: string) => {
     Speench.speak(text, {
-      language: 'en-US',
+      language: "en-US",
       pitch: 1,
       rate: 0.5,
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    Audio
-      .requestPermissionsAsync()
-      .then((granted: any) => {
-        if (granted) {
-          Audio.setAudioModeAsync({
-            allowsRecordingIOS: true,
-            interruptionModeIOS: InterruptionModeIOS.DoNotMix,
-            playsInSilentModeIOS: true,
-            shouldDuckAndroid: true,
-            interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
-            playThroughEarpieceAndroid: true,
-          });
-        }
-      });
+    Audio.requestPermissionsAsync().then((granted: any) => {
+      if (granted) {
+        Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          interruptionModeIOS: InterruptionModeIOS.DoNotMix,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+          playThroughEarpieceAndroid: true,
+        });
+      }
+    });
   }, []);
 
   return {
@@ -178,7 +186,7 @@ const useLogic = () => {
       result,
       isLoading,
       description,
-      recording
+      recording,
     },
     methods: {
       setEdit,
@@ -186,9 +194,9 @@ const useLogic = () => {
       recordingStop,
       setDescription,
       textToVoice,
-      setResult
-    }
-  }
-}
+      setResult,
+    },
+  };
+};
 
 export { useLogic };
