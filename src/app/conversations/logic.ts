@@ -1,9 +1,4 @@
-import { useEffect, useState } from "react";
-
-import { Alert } from "react-native";
-
-
-const CHAT_GPD_API_KEY = process.env.CHAT_GPD_API_KEY;
+import { useState } from "react";
 
 const useLogic = () => {
   const [description, setDescription] = useState('');
@@ -19,26 +14,6 @@ const useLogic = () => {
     setIsLoadingResponse(true);
     setConversations(prev => ([...prev, description]));
 
-    // await fetch("https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions", {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${CHAT_GPD_API_KEY}`
-    //   },
-    //   body: JSON.stringify({
-    //     prompt,
-    //     temperature: 0.22,
-    //     max_tokens: 500,
-    //     top_p: 1,
-    //     frequency_penalty: 0,
-    //     presence_penalty: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch(() => Alert.alert('Erro', 'Não foi possível buscar as tags.'))
 
     const newConversation = "Teste Milenar dos Milênios";
 
