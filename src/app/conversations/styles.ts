@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
   },
   consversationMessagesWrapper: {
-    maxWidth: '100%',
+    maxWidth: '80%',
     width: 'auto',
     display: 'flex',
     flexDirection: 'row',
@@ -74,5 +74,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: THEME.COLORS.PRIMARY,
     borderRadius: 100,
+  },
+
+  dotsTyping: {
+    backgroundColor: 'transparent',
+    transform: [{
+      scale: 2,
+    }]
   }
 });
