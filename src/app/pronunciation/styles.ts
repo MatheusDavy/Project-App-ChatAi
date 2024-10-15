@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { FONT_FAMILY, FONT_SIZE, HEIGHT_SCREEEN, SPACINGS, WIDHT_SCREEN } from "@/src/styles";
+import { FONT_FAMILY, FONT_SIZE, SPACINGS, WIDHT_SCREEN } from "@/src/styles";
 
 import { THEME } from "@/src/styles/themes";
 
@@ -8,35 +8,39 @@ import { THEME } from "@/src/styles/themes";
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: THEME.COLORS.SECONDARY,
-    minHeight: HEIGHT_SCREEEN,
+    height: '100%',
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'space-between',
+    flexDirection: 'column',
   },
-
   text: {
     fontSize: FONT_SIZE.size_20,
     color: THEME.FONTS.COLORS.PRIMARY,
     fontFamily: FONT_FAMILY.poppinsRegular,
   },
 
-
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     flexWrap: 'nowrap',
-    width: '100%',
-    paddingHorizontal: 30,
+    width: '90%',
+    marginHorizontal: 'auto',
     gap: 10,
   },
   input: {
     color: THEME.FONTS.COLORS.PRIMARY,
     fontSize: FONT_SIZE.size_18,
     fontFamily: FONT_FAMILY.poppinsSemibold,
-    borderBottomWidth: 2,
-    borderBottomColor: THEME.COLORS.QUATERNARY,
+    
     flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: THEME.COLORS.QUATERNARY,
+    backgroundColor: THEME.COLORS.TERTIARY,
   },
   inputEdit: {
     width: 40,

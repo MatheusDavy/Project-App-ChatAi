@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
 
     padding: SPACINGS.container,
-
+    paddingBottom: SPACINGS.container + 40,
     backgroundColor: THEME.COLORS.SECONDARY,
   },
   title: {

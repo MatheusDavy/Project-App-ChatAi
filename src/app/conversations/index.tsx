@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -27,7 +29,10 @@ const ConversationsPage = () => {
 
   return (
     <SafeAreaView>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <Header text="Bora!!, Vamos conversar" />
 
         <ScrollView
@@ -137,7 +142,7 @@ const ConversationsPage = () => {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

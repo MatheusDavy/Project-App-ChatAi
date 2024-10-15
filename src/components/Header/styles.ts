@@ -9,19 +9,12 @@ export const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: '100%',
-
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-
     gap: 20,
-
     backgroundColor: THEME.COLORS.SECONDARY,
-
-    paddingHorizontal: 20,
-    paddingTop: 20 + 30,
-    paddingBottom: 20,
-
+    padding: 20,
     borderBottomWidth: 2,
     borderBottomColor: THEME.COLORS.QUATERNARY
   },

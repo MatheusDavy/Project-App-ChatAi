@@ -7,21 +7,17 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: THEME.COLORS.SECONDARY,
-    minHeight: HEIGHT_SCREEEN,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    height: '100%'
   },
-
   conversationsContainer: {
-    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     padding: 20,
-    height: 'auto',
     zIndex: 10,
     position: 'relative',
-    marginBottom: 30,
   },
   consversationMessagesWrapper: {
     maxWidth: '80%',
@@ -37,7 +33,6 @@ export const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
   },
-
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -47,13 +42,13 @@ export const styles = StyleSheet.create({
 
     width: '90%',
     marginHorizontal: 'auto',
-    marginBottom: 30
-
+    marginBottom: 30,
   },
   input: {
     color: THEME.FONTS.COLORS.PRIMARY,
     fontSize: FONT_SIZE.size_18,
     fontFamily: FONT_FAMILY.poppinsSemibold,
+    maxHeight: 100,
     
     flex: 1,
     paddingHorizontal: 20,
@@ -64,7 +59,6 @@ export const styles = StyleSheet.create({
     borderColor: THEME.COLORS.QUATERNARY,
     backgroundColor: THEME.COLORS.TERTIARY,
   },
-
   send: {
     width: 45,
     height: 45,
@@ -75,7 +69,6 @@ export const styles = StyleSheet.create({
     backgroundColor: THEME.COLORS.PRIMARY,
     borderRadius: 100,
   },
-
   dotsTyping: {
     backgroundColor: 'transparent',
     transform: [{
