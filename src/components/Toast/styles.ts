@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
   },
   text: {
-    color: THEME.FONTS.COLORS.PRIMARY,
+    color: THEME.COLORS.WHITE,
     fontSize: FONT_SIZE.size_18,
     fontFamily: FONT_FAMILY.poppinsRegular,
     textAlign: 'center',

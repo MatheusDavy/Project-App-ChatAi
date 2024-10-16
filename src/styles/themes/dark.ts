@@ -8,7 +8,7 @@ export const darkTheme = {
 
     YELLOW: 'yellow',
     RED: 'red',
-    BLUE: '',
+    WHITE: 'white'
   },
 
   FONTS: {

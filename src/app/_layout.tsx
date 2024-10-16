@@ -15,7 +15,6 @@ import { Toast } from '../components/Toast';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -38,9 +37,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider
-      value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-    >
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Provider store={store}>
         <Slot />
 
