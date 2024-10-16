@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
 
 export const stylesMarbles = StyleSheet.create({
   marbles: {
-    width: '80%',
+    width: '90%',
     height: 'auto',
     marginHorizontal: 'auto',
     marginTop: 30,

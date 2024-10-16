@@ -46,7 +46,6 @@ const useLogic = () => {
       });
 
       const data = await transcriptResponse.json();
-      console.log(data);
       const response = data.results[0].alternatives[0].transcript || "";
 
       if (response) {

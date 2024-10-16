@@ -162,6 +162,7 @@ const ModalResult = ({ result, closeModal }: ModalProps) => {
           autoPlay
           loop={false}
           style={stylesModal.animation}
+          renderMode={'SOFTWARE'}
         />
       )}
     </SafeAreaView>
