@@ -13,7 +13,7 @@ export function Toast() {
   const { id, description, type } = useSelector((store: StoreRootState) => store.toast)
 
   const bg = {
-    'info': THEME.COLORS.YELLOW,
+    'info': THEME.COLORS.PRIMARY,
     'error': THEME.COLORS.RED
   }
 

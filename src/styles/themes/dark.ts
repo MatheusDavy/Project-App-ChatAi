@@ -7,7 +7,8 @@ export const darkTheme = {
     QUINARY: '#FFF',
 
     YELLOW: 'yellow',
-    RED: 'red'
+    RED: 'red',
+    BLUE: '',
   },
 
   FONTS: {
