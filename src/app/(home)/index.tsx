@@ -1,28 +1,32 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import { router } from "expo-router";
 
 import { styles } from "./styles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { SelectLanguage } from "@/src/components/ChooseLanguage";
+import { useTranslation } from 'react-i18next';
+import { ScrollView } from "moti";
 
 const HomeView = () => {
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Bem vindo de volta!</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>{t('home.welcome')}</Text>
 
         <Image
           style={styles.logo}
           source={require("@/src/assets/images/logo.png")}
         />
 
-        <View>
-          <Text style={styles.text}>Vamos aprender algo novo</Text>
-          <Text style={styles.subtext}>
-            Você pode melhorar sua conversação, pronúncia e falar sobre qualquer
-            assunto
-          </Text>
+        <View style={{ marginTop: 30, marginBottom: 30 }}>
+          <Text style={styles.text}>{t('home.title')}</Text>
+          <Text style={styles.subtext}>{t('home.description')}</Text>
         </View>
+
+        <SelectLanguage />
 
         <TouchableOpacity
           style={styles.linkWrapper}
@@ -30,9 +34,9 @@ const HomeView = () => {
             router.replace("/functionalities");
           }}
         >
-          <Text style={styles.linkText}>Iniciar</Text>
+          <Text style={styles.linkText}>{t('home.button')}</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

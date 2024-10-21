@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import { useLogic } from "./logic";
 
 import {
@@ -16,7 +14,6 @@ import {
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import LottieView from "lottie-react-native";
 import { Header } from "@/src/components/Header";
 import { TypingAnimation } from "react-native-typing-animation";
 import { MotiView } from "moti";
@@ -24,8 +21,10 @@ import { MotiView } from "moti";
 import { THEME } from "@/src/styles/themes";
 import { FONT_FAMILY } from "@/src/styles";
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 const ConversationsPage = () => {
+  const { t } = useTranslation();
   const { data, methods } = useLogic();
 
   return (
@@ -34,7 +33,7 @@ const ConversationsPage = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <Header text="Traduza qualquer texto" />
+        <Header text={t('translations.header')} />
 
         <Image
           source={require("@/src/assets/images/robot-02.png")}
@@ -46,7 +45,7 @@ const ConversationsPage = () => {
           onChangeText={methods.setDescription}
           style={styles.input}
           placeholderTextColor={THEME.FONTS.COLORS.SECONDARY}
-          placeholder="Say anything..."
+          placeholder={t('translations.inputLabel')}
           multiline={true}
           numberOfLines={!data.description ? 1 : 2}
         />
@@ -63,7 +62,7 @@ const ConversationsPage = () => {
               fontFamily: FONT_FAMILY.poppinsBold,
             }}
           >
-            Tranduzir
+            {t('translations.button')} 
           </Text>
           <Ionicons
             name="language-outline"

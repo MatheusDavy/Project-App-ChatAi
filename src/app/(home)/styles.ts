@@ -10,11 +10,10 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     alignItems: 'center',
 
     padding: SPACINGS.container,
-    paddingBottom: SPACINGS.container + 40,
+    paddingBottom: SPACINGS.container,
     backgroundColor: THEME.COLORS.SECONDARY,
   },
   title: {
@@ -27,6 +26,7 @@ export const styles = StyleSheet.create({
     height: 295,
     maxWidth: 295,
     objectFit: 'contain',
+    marginTop: 30
   },
   text: {
     fontSize: WIDHT_SCREEN * 0.09,
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 15,
     borderRadius: 1000,
-    marginBottom: 30
+    marginTop: 30,
   },
   linkText: {
     fontSize: 20,

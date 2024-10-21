@@ -5,14 +5,19 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { THEME } from "@/src/styles/themes";
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
+import { Header } from "@/src/components/Header";
 
 const FunctionalitiesPage = () => {
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView>
+      <Header navigate="/" />
       <ScrollView
         contentContainerStyle={styles.container}
       >
+
         <Image
           style={styles.logo}
           source={require('@/src/assets/images/robot-01.png')}
@@ -23,10 +28,10 @@ const FunctionalitiesPage = () => {
             marginTop: 40,
           }}
         >
-          See all possibilities
+          {t('functionalities.title_one')}
         </Text>
         <Text style={styles.title}>
-          to learn a new language
+        {t('functionalities.title_two')}
         </Text>
 
         <View style={styles.contentWrapper}>
@@ -37,7 +42,9 @@ const FunctionalitiesPage = () => {
             }}
           >
             <Ionicons name="chatbox-ellipses-outline" size={40} color={THEME.COLORS.PRIMARY} />
-            <Text style={styles.contentCardText}>Simulate chating</Text>
+            <Text style={styles.contentCardText}>
+              {t('functionalities.chat')}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -47,7 +54,9 @@ const FunctionalitiesPage = () => {
             }}
           >
             <Ionicons name="happy-outline" size={40} color={THEME.COLORS.PRIMARY} />
-            <Text style={styles.contentCardText}>Pronounce correctly</Text>
+            <Text style={styles.contentCardText}>
+              {t('functionalities.pronounce')}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -57,7 +66,9 @@ const FunctionalitiesPage = () => {
             }}
           >
             <Ionicons name="globe-outline" size={40} color={THEME.COLORS.PRIMARY} />
-            <Text style={styles.contentCardText}>Translate anything</Text>
+            <Text style={styles.contentCardText}>
+              {t('functionalities.translate')}
+            </Text>
           </TouchableOpacity>
         </View>
 

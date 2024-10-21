@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    minHeight: '100%',
+    height: 'auto',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -19,7 +19,6 @@ export const styles = StyleSheet.create({
     height: 200,
     maxWidth: 200,
     objectFit: 'contain',
-    marginTop: 50,
   },
   title: {
     fontSize: FONT_SIZE.size_20,

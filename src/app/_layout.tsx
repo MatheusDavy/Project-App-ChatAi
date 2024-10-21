@@ -14,6 +14,7 @@ import 'react-native-reanimated';
 import { Toast } from '../components/Toast';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
+import '@/src/translations/index';
 
 SplashScreen.preventAutoHideAsync();
 

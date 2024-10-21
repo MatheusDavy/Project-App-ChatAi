@@ -21,8 +21,10 @@ import { TypingAnimation } from "react-native-typing-animation";
 
 import { THEME } from "@/src/styles/themes";
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 const ConversationsPage = () => {
+  const { t } = useTranslation();
   const { data, methods } = useLogic();
 
   const scrollConversations = useRef(null);
@@ -33,7 +35,7 @@ const ConversationsPage = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <Header text="Bora!!, Vamos conversar" />
+        <Header text={t('conversations.header')} />
 
         <ScrollView
           ref={scrollConversations}
@@ -122,7 +124,7 @@ const ConversationsPage = () => {
             onChangeText={methods.setDescription}
             style={styles.input}
             placeholderTextColor={THEME.FONTS.COLORS.SECONDARY}
-            placeholder="Say anything..."
+            placeholder={t('conversations.inputLabel')}
             multiline={true}
             numberOfLines={!data.description ? 1 : 2}
           />

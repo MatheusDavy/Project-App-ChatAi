@@ -7,8 +7,11 @@ import * as FileSystem from "expo-file-system";
 
 import { showToast } from "@/src/store/reducers/toast";
 import { Platform } from "react-native";
+import { useTranslation } from "react-i18next";
+import { getLanguageCode } from "@/src/translations";
 
 const useLogic = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
@@ -26,7 +29,7 @@ const useLogic = () => {
 
       const payload = JSON.stringify({
         config: {
-          languageCode: "en-US",
+          languageCode: getLanguageCode[i18n.language],
           encoding: Platform.OS === "ios" ? "LINEAR16" : "AMR_WB",
           sampleRateHertz: Platform.OS === "ios" ? 44100 : 16000,
         },
@@ -53,7 +56,7 @@ const useLogic = () => {
       } else {
         dispatch(
           showToast({
-            description: "Não foi possível obter informações de sua pronúncia",
+            description: t('pronunciation.pronounceErrorRequest'),
             type: "error",
           })
         )
@@ -62,7 +65,7 @@ const useLogic = () => {
       console.log("error transcript: " + error);
       dispatch(
         showToast({
-          description: "Não foi possível obter informações de sua pronúncia",
+          description: t('pronunciation.pronounceErrorRequest'),
           type: "error",
         })
       );
@@ -95,7 +98,7 @@ const useLogic = () => {
       return dispatch(
         showToast({
           description:
-            "Você precisa adicionar um texto de referência para iniciar",
+          t('pronunciation.pronounceErrorEmpty'),
           type: "error",
         })
       );
@@ -147,7 +150,7 @@ const useLogic = () => {
         getResponse(base64File);
       } else {
         showToast({
-          description: "Não foi possível obter informações de sua pronúncia",
+          description: t('pronunciation.pronounceErrorRequest'),
           type: "error",
         });
       }
@@ -158,7 +161,7 @@ const useLogic = () => {
 
   const textToVoice = (text: string) => {
     Speench.speak(text, {
-      language: "en-US",
+      language: getLanguageCode[i18n.language],
       pitch: 1,
       rate: 0.5,
     });

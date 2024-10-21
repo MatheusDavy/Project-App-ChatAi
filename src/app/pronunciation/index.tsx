@@ -11,7 +11,6 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
-  Image,
 } from "react-native";
 import { Header } from "@/src/components/Header";
 
@@ -27,9 +26,11 @@ import { THEME } from "@/src/styles/themes";
 import { MarblesProps, ModalProps } from "./types";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import { MotiImage, AnimatePresence } from 'moti';
+import { MotiImage } from "moti";
+import { useTranslation } from "react-i18next";
 
 const PronunciationPage = () => {
+  const { t } = useTranslation();
   const { data, methods } = useLogic();
 
   return (
@@ -39,7 +40,11 @@ const PronunciationPage = () => {
         style={styles.container}
       >
         <Header
-          text={data.recording ? "Prossiga, Estou te ouvindo" : "Pronuncie"}
+          text={
+            data.recording
+              ? t("pronunciation.header_listening")
+              : t("pronunciation.header")
+          }
           color={data.recording ? THEME.COLORS.PRIMARY : THEME.COLORS.SECONDARY}
         />
         <Marbles isRecordind={data.isLoading} />
@@ -55,7 +60,7 @@ const PronunciationPage = () => {
               onChangeText={methods.setDescription}
               style={styles.input}
               placeholderTextColor={THEME.FONTS.COLORS.SECONDARY}
-              placeholder="Type something to pronunce..."
+              placeholder={t("pronunciation.inputLabel")}
               numberOfLines={!data.description ? 1 : 2}
               readOnly={!data.edit}
             />
@@ -107,6 +112,7 @@ const PronunciationPage = () => {
 };
 
 const ModalResult = ({ result, closeModal }: ModalProps) => {
+  const { t } = useTranslation();
   const { methods } = useLogic();
 
   const hasNoErrors = result.filter((item: any) => item.isDifferent === true);
@@ -151,8 +157,8 @@ const ModalResult = ({ result, closeModal }: ModalProps) => {
         />
         <Text style={stylesPopup.text}>
           {!hasNoErrors.length
-            ? "Parabéns, você pronuncionou corretamente a frase!!! Crie mais frases para melhorar sua pronuncia"
-            : "As palavras em destaque não foram pronunciadas corretamente, clique nelas para ouvir como pronuncia-las"}
+            ? t("pronunciation.congratulations")
+            : t("pronunciation.incorrect")}
         </Text>
       </View>
 
@@ -162,7 +168,7 @@ const ModalResult = ({ result, closeModal }: ModalProps) => {
           autoPlay
           loop={false}
           style={stylesModal.animation}
-          renderMode={'SOFTWARE'}
+          renderMode={"SOFTWARE"}
         />
       )}
     </SafeAreaView>
@@ -172,20 +178,20 @@ const ModalResult = ({ result, closeModal }: ModalProps) => {
 const Marbles = memo(function Marbles({ isRecordind }: MarblesProps) {
   return (
     <MotiImage
-      key={isRecordind ? 'RECORDING' : 'STATIC'}
+      key={isRecordind ? "RECORDING" : "STATIC"}
       source={require("@/src/assets/images/marble-listening.png")}
       style={stylesMarbles.marbles}
       from={{
         scale: 1,
-        rotate: '0deg'
+        rotate: "0deg",
       }}
       animate={{
-        rotate: '360deg',
-        scale: isRecordind ? 1.3 : 1
+        rotate: "360deg",
+        scale: isRecordind ? 1.3 : 1,
       }}
       transition={{
         loop: true,
-        type: 'timing',
+        type: "timing",
         duration: isRecordind ? 2000 : 10000,
       }}
     />
