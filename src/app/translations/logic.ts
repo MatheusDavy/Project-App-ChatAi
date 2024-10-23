@@ -21,7 +21,6 @@ const useLogic = () => {
 
   const getResponse = async () => {
     setIsLoadingResponse(true);
-    setDescription('');
 
     const prompt = `
       Translate: "${description}" to code language as ${getLanguageCode[i18n.language]}
@@ -47,7 +46,8 @@ const useLogic = () => {
     setIsLoadingResponse(false);
   };
 
-  const convertTextToVoice = () => {
+  const convertTextToVoice = async () => {
+    await Speench.stop();
     Speench.speak(result, {
       language: getLanguageCode[i18n.language],
       pitch: 1,

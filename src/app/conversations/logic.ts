@@ -3,6 +3,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { showToast } from "@/src/store/reducers/toast";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import * as Speench from "expo-speech";
+import { getLanguageCode } from "@/src/translations";
 
 const genAI = new GoogleGenerativeAI(process.env.EXPO_PUBLIC_GOOGLE_GEMINI_AI!);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -23,11 +25,11 @@ const useLogic = () => {
     setDescription('');
 
     const prompt = `
-      Respond to the following statement: "${description}" 
-      Simulate a natural, human-like conversation, maintaining a balanced tone (neither too formal nor too casual).
-      Ensure the response is concise, with a maximum of 400 characters, and written in code language as '${i18n.language}'.
-      If the input does not resemble a conversation or is incoherent, respond with "I’m sorry, I didn’t quite understand that. Could you clarify?" in code language as '${i18n.language}' 
-      Focus on providing thoughtful and relevant insights.
+      Given the input: "${description}", respond as if you're having a real, human-like conversation about the topic provided.
+      Use a tone that feels natural, avoiding extremes (neither too formal nor too casual).
+      Write the response in ${i18n.language}, keeping it concise (max 250 characters).
+      If the input lacks context or is unclear, return: "I’m sorry, I didn’t quite understand that. Could you clarify?" in ${i18n.language}.
+      Focus on delivering relevant, thoughtful insights related to the input.
     `;
 
     try {
@@ -47,8 +49,13 @@ const useLogic = () => {
     setIsLoadingResponse(false);
   };
 
-  const convertTextToVoice = (text: string) => {
-    console.log(text);
+  const convertTextToVoice = async (text: string) => {
+    await Speench.stop();
+    Speench.speak(text, {
+      language: getLanguageCode[i18n.language],
+      pitch: 1,
+      rate: 1,
+    });
   };
 
   return {

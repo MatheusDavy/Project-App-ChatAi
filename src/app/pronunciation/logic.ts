@@ -159,7 +159,8 @@ const useLogic = () => {
     }
   };
 
-  const textToVoice = (text: string) => {
+  const textToVoice = async (text: string) => {
+    await Speench.stop();
     Speench.speak(text, {
       language: getLanguageCode[i18n.language],
       pitch: 1,
