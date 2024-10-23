@@ -38,20 +38,21 @@ export const styles = StyleSheet.create({
   },
   contentCard: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 20,
     padding: 20,
     backgroundColor: THEME.COLORS.TERTIARY,
     borderRadius: 30,
-    width: '47%',
+    width: '100%',
     borderColor: THEME.COLORS.QUATERNARY,
-    borderWidth: 2
+    borderWidth: 2,
   },
   contentCardText: {
     fontSize: FONT_SIZE.size_18,
     fontFamily: FONT_FAMILY.poppinsSemibold,
     color: THEME.FONTS.COLORS.PRIMARY,
     textAlign: 'center',
+    flexShrink: 1,
   }
 })
