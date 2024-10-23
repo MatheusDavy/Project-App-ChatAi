@@ -51,7 +51,7 @@ const useLogic = () => {
     Speench.speak(result, {
       language: getLanguageCode[i18n.language],
       pitch: 1,
-      rate: 0.5,
+      rate: 1,
     });
   };
   const copyTextToClipboard = async () => {

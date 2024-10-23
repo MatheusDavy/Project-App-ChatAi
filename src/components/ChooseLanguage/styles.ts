@@ -25,6 +25,6 @@ export const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   pickerItem: {
-    color: THEME.FONTS.COLORS.PRIMARY,
+    color: THEME.COLORS.PRIMARY,
   }
 })

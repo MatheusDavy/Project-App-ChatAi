@@ -15,6 +15,10 @@ const SelectLanguage = () => {
   const { t, i18n } = useTranslation();
   const pickerRef = useRef(null);
 
+  if (!i18n.language) {
+    i18n.changeLanguage('pt');
+  }
+
   const setSelectedLanguage = (value: string) => {
     i18n.changeLanguage(value);
   };
