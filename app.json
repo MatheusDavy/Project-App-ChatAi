@@ -2,7 +2,7 @@
   "expo": {
     "name": "ChatAi",
     "slug": "ChatAi",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/logo.png",
     "scheme": "myapp",
@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.matheusdavys.ChatAi"
     },
     "android": {
       "softwareKeyboardLayoutMode": "resize",
@@ -35,6 +36,17 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "851bb5f2-df9b-427c-a83c-9e52eda649e8"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/851bb5f2-df9b-427c-a83c-9e52eda649e8"
     }
   }
 }
