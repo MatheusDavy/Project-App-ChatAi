@@ -67,9 +67,7 @@ const PronunciationPage = () => {
 
             <TouchableOpacity
               style={styles.inputEdit}
-              onPress={() => {
-                methods.setEdit((prev) => !prev);
-              }}
+              onPress={methods.handleSetEdit}
             >
               <Ionicons
                 style={{ position: "relative", zIndex: 10 }}

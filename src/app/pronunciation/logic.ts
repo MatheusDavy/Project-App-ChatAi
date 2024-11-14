@@ -56,16 +56,16 @@ const useLogic = () => {
       } else {
         dispatch(
           showToast({
-            description: t('pronunciation.pronounceErrorRequest'),
+            description: t("pronunciation.pronounceErrorRequest"),
             type: "error",
           })
-        )
+        );
       }
     } catch (error) {
       console.log("error transcript: " + error);
       dispatch(
         showToast({
-          description: t('pronunciation.pronounceErrorRequest'),
+          description: t("pronunciation.pronounceErrorRequest"),
           type: "error",
         })
       );
@@ -75,8 +75,8 @@ const useLogic = () => {
   };
 
   const compareResults = async (text: string) => {
-    const mainWords = description.toLocaleLowerCase().split(" ");
-    const comparisonWords = text.toLocaleLowerCase().split(" ");
+    const mainWords = description.replace(/\s+/g, ' ').replace(/'/g, '').trim().toLocaleLowerCase().split(" ");
+    const comparisonWords = text.toLocaleLowerCase().replace(/'/g, '').split(" ");
 
     let result = [];
 
@@ -97,8 +97,7 @@ const useLogic = () => {
     if (edit) {
       return dispatch(
         showToast({
-          description:
-          t('pronunciation.pronounceErrorEmpty'),
+          description: t("pronunciation.pronounceErrorEmpty"),
           type: "error",
         })
       );
@@ -150,7 +149,7 @@ const useLogic = () => {
         getResponse(base64File);
       } else {
         showToast({
-          description: t('pronunciation.pronounceErrorRequest'),
+          description: t("pronunciation.pronounceErrorRequest"),
           type: "error",
         });
       }
@@ -165,7 +164,26 @@ const useLogic = () => {
       language: getLanguageCode[i18n.language],
       pitch: 1,
       rate: 0.5,
+      volume: 1.0
     });
+  };
+
+  const handleSetEdit = () => {
+    if (
+      description.includes(",") ||
+      description.includes(".") ||
+      !description
+    ) {
+      dispatch(
+        showToast({
+          description: t("pronunciation.pronounceInvalidDescription"),
+          type: "info",
+        })
+      );
+      setEdit(true);
+    } else {
+      setEdit((prev) => !prev);
+    }
   };
 
   useEffect(() => {
@@ -192,7 +210,7 @@ const useLogic = () => {
       recording,
     },
     methods: {
-      setEdit,
+      handleSetEdit,
       recordingStart,
       recordingStop,
       setDescription,

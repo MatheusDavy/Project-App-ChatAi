@@ -7,7 +7,8 @@ export const pronunciationTranslations = {
       congratulations: 'Parabéns, você pronuncionou corretamente a frase!!! Crie mais frases para melhorar sua pronuncia',
       incorrect: 'As palavras em destaque não foram pronunciadas corretamente, clique nelas para ouvir como pronuncia-las',
       pronounceErrorRequest: 'Não foi possível obter informações de sua pronúncia',
-      pronounceErrorEmpty: 'Você precisa adicionar um texto de referência para iniciar'
+      pronounceErrorEmpty: 'Você precisa adicionar um texto de referência para iniciar',
+      pronounceInvalidDescription: 'Não insira "." ou "," ou frases vazias',
     }
   },
   en: {
@@ -18,7 +19,8 @@ export const pronunciationTranslations = {
       congratulations: 'Congratulations, you pronounced the sentence correctly! Create more sentences to improve your pronunciation',
       incorrect: 'The highlighted words were not pronounced correctly, click on them to hear how to pronounce them',
       pronounceErrorRequest: 'Could not get pronunciation information',
-      pronounceErrorEmpty: 'You need to add reference text to start'
+      pronounceErrorEmpty: 'You need to add reference text to start',
+      pronounceInvalidDescription: 'Do not insert ".", "," or empty sentences'
     }
   },
   es: {
@@ -29,7 +31,8 @@ export const pronunciationTranslations = {
       congratulations: '¡Felicidades, pronunciaste la frase correctamente! Crea más frases para mejorar tu pronunciación',
       incorrect: 'Las palabras resaltadas no se pronunciaron correctamente, haz clic en ellas para escuchar cómo pronunciarlas',
       pronounceErrorRequest: 'No se pudo obtener información sobre tu pronunciación',
-      pronounceErrorEmpty: 'Necesitas añadir un texto de referencia para empezar'
+      pronounceErrorEmpty: 'Necesitas añadir un texto de referencia para empezar',
+      pronounceInvalidDescription: 'No inserte ".", "," o frases vacías'
     }
   },
   fr: {
@@ -40,7 +43,8 @@ export const pronunciationTranslations = {
       congratulations: 'Félicitations, vous avez bien prononcé la phrase ! Créez plus de phrases pour améliorer votre prononciation',
       incorrect: 'Les mots en surbrillance n\'ont pas été prononcés correctement, cliquez dessus pour entendre comment les prononcer',
       pronounceErrorRequest: 'Impossible d\'obtenir des informations sur votre prononciation',
-      pronounceErrorEmpty: 'Vous devez ajouter un texte de référence pour commencer'
+      pronounceErrorEmpty: 'Vous devez ajouter un texte de référence pour commencer',
+      pronounceInvalidDescription: 'N’insérez pas de ".", "," ou de phrases vides'
     }
   }
 }
