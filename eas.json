@@ -1,28 +1,16 @@
 {
-  "cli": {
-    "version": ">= 12.6.2",
-    "appVersionSource": "remote"
-  },
   "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development"
+    },
     "preview": {
-      "android": {
-        "buildType": "apk"
-      }
+      "distribution": "internal",
+      "channel": "preview"
     },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
-    },
-    "preview4": {
-      "distribution": "internal"
-    },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
+    "production": {
+      "channel": "production"
+    }
   }
 }

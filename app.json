@@ -18,16 +18,12 @@
     },
     "android": {
       "softwareKeyboardLayoutMode": "resize",
+      "overridePathCheck": true,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.matheusdavys.ChatAi"
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./src/assets/images/logo.png"
     },
     "plugins": [
       "expo-router",
