@@ -163,7 +163,7 @@ const useLogic = () => {
     Speench.speak(text, {
       language: getLanguageCode[i18n.language],
       pitch: 1,
-      rate: 0.5,
+      rate: 1,
       volume: 1.0
     });
   };

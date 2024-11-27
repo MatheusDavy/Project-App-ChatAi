@@ -25,11 +25,12 @@ const useLogic = () => {
     setDescription('');
 
     const prompt = `
-      Given the input: "${description}", respond as if you're having a real, human-like conversation about the topic provided.
-      Use a tone that feels natural, avoiding extremes (neither too formal nor too casual).
-      Write the response in ${i18n.language}, keeping it concise (max 250 characters).
-      If the input lacks context or is unclear, return: "I’m sorry, I didn’t quite understand that. Could you clarify?" in ${i18n.language}.
-      Focus on delivering relevant, thoughtful insights related to the input.
+      Given the conversation history: ${JSON.stringify(conversations)},
+      and the latest user input: "${description}", craft a response as if you're having a real, human-like conversation about the provided topic.
+      Consider the context of previous exchanges and the level of English used throughout the conversation.
+      Respond in a tone that aligns with the language level observed, writing in ${i18n.language}.
+      Ensure the response is concise (max 250 characters) and focuses on delivering relevant, thoughtful insights related to the input.
+      If the input lacks context or is unclear, respond with: "I’m sorry, I didn’t quite understand that. Could you clarify?" in ${i18n.language}.
     `;
 
     try {
